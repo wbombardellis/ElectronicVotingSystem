@@ -47,26 +47,30 @@ public class VoteCommand implements Command {
                 it.remove();
         }
         textInterface.showVotings(votings);
-        Voting chosenVoting;
-        chosenVoting = textInterface.chooseVoting(votings);
-        showVoteOptions();
-        int choice = UIUtils.INSTANCE.readInteger("Vote option", 1, 3);
-        VoteType voteType = null;
-        switch(choice){
-            case FAVORABLE:
-                voteType = VoteType.FAVORABLE;
-                break;
-            case NOT_FAVORABLE:
-                voteType = VoteType.NOT_FAVORABLE;
-                break;
-            case ABSTENTION:
-                voteType = VoteType.ABSTENTION;
-                break;
+        
+        if (votings.size() > 0)
+        {
+        	Voting chosenVoting;
+            chosenVoting = textInterface.chooseVoting(votings);
+            showVoteOptions();
+            int choice = UIUtils.INSTANCE.readInteger("Vote option", 1, 3);
+            VoteType voteType = null;
+            switch(choice){
+                case FAVORABLE:
+                    voteType = VoteType.FAVORABLE;
+                    break;
+                case NOT_FAVORABLE:
+                    voteType = VoteType.NOT_FAVORABLE;
+                    break;
+                case ABSTENTION:
+                    voteType = VoteType.ABSTENTION;
+                    break;
+            }
+            String explanation = UIUtils.INSTANCE.readString("Explanation(optional)");
+            VotingMember votingMember = (VotingMember)textInterface.getCurrentMember();
+            VoteOperation voteOperation = new VoteOperation(database,textInterface,chosenVoting,voteType, votingMember, explanation);
+            voteOperation.execute();
         }
-        String explanation = UIUtils.INSTANCE.readString("Explanation(optional)");
-        VotingMember votingMember = (VotingMember)textInterface.getCurrentMember();
-        VoteOperation voteOperation = new VoteOperation(database,textInterface,chosenVoting,voteType, votingMember, explanation);
-        voteOperation.execute();
     }
     
     @Override

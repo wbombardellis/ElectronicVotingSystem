@@ -15,14 +15,14 @@ import ui.text.command.LoginCommand;
 
 /**
  *
- * @author RÉGES
+ * @author Rï¿½GES
  */
 public class ElectronicVotingSystem {
     
     private static final String EXIT_CODE = "E";
     
     public static void main(String[] args) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        //BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Database database = new Database();
         Interface textInterface = new Interface(database);
         showUI(database, textInterface);

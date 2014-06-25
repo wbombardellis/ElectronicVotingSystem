@@ -32,7 +32,16 @@ public class CloseVotingOperation implements Operation {
         textInterface.showVotings(unclosedVotings);
         chosenVoting = textInterface.chooseVoting(unclosedVotings);
         if (chosenVoting != null)
-            chosenVoting.close();
+        {
+        	if (chosenVoting.getVotes().size() >= 8)
+        	{
+        		chosenVoting.close();
+        	}
+        	else
+        	{
+        		textInterface.showWarning("The voting cannot be closed because there are not enough votes!");
+        	}
+        }
     }
     
 }

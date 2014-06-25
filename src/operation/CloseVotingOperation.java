@@ -36,10 +36,12 @@ public class CloseVotingOperation implements Operation {
         	if (chosenVoting.getVotes().size() >= 8)
         	{
         		chosenVoting.close();
+        		textInterface.showWarning("The voting has been closed.");
         	}
         	else
         	{
         		textInterface.showWarning("The voting cannot be closed because there are not enough votes!");
+        		textInterface.showWarning("Current votes = " + chosenVoting.getVotes().size() + ". Minimum: 8.s");
         	}
         }
     }

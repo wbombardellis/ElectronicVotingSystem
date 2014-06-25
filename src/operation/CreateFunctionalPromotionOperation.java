@@ -17,7 +17,7 @@ import ui.text.Interface;
 
 /**
  *
- * @author RÉGES
+ * @author Rï¿½GES
  */
 public class CreateFunctionalPromotionOperation implements Operation {
     
@@ -54,6 +54,11 @@ public class CreateFunctionalPromotionOperation implements Operation {
     }
 
     private boolean documentsOk() {
+    	boolean descriptiveMemorandumOk = descriptiveMemorandum.isEmpty() == false;
+    	boolean scoreSheetOk = scoreSheet.isEmpty() == false;
+    	boolean vouchersOk = vouchers.isEmpty() == false;
+    	return (descriptiveMemorandumOk && scoreSheetOk && vouchersOk);
+    	/*
         File descriptiveMemorandumFile = new File(descriptiveMemorandum);
         File scoreSheetFile = new File(scoreSheet);
         File vouchersFile = new File(vouchers);
@@ -61,5 +66,6 @@ public class CreateFunctionalPromotionOperation implements Operation {
         boolean scoreSheetOk = (scoreSheetFile.exists() && !scoreSheetFile.isDirectory());
         boolean vouchersOk = (vouchersFile.exists() && !vouchersFile.isDirectory());
         return (descriptiveMemorandumOk && scoreSheetOk && vouchersOk);
+        */
     }
 }

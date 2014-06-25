@@ -129,6 +129,28 @@ public class Database {
         return unrecordedOpenVotings;
     }
     
+    public List<Voting> getAllClosedVotings()
+    {
+    	List<Voting> closedVotings = new ArrayList<Voting>();
+    	
+    	for (Voting voting : unrecordedVotings)
+    	{
+			if (voting.isClosed())
+			{
+				closedVotings.add(voting);
+			}
+		}
+    	for (Voting voting : recordedVotings)
+    	{
+			if (voting.isClosed())
+			{
+				closedVotings.add(voting);
+			}
+		}
+    	
+    	return closedVotings;
+    }
+    
     public void recordVoting(Voting voting){
         voting.record();
         recordedVotings.add(voting);

@@ -25,6 +25,7 @@ public abstract class Voting {
     private boolean recorded;
     private boolean released;
     private final List<Vote> votes;
+    private boolean closed = false;
     private boolean closedManually = false;
     private final List<VotingMember> membersWhoVoted;
     
@@ -50,13 +51,15 @@ public abstract class Voting {
     
     public boolean isClosed(){
         Date currentDate = new Date();
-        return currentDate.after(endDate);
+        this.closed = currentDate.after(endDate) || this.closedManually;
+        return this.closed;
     }
     
     public void close(){
         Date currentDate = new Date();
         this.endDate = currentDate;
         this.closedManually = true;
+        this.closed = true;
     }
     
     public boolean isAuthorized(){
@@ -72,6 +75,7 @@ public abstract class Voting {
     }
     
     public void record(){
+    	this.closed = true;
         this.recorded = true;
     }
     

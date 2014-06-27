@@ -4,7 +4,6 @@ package operation;
 import java.util.List;
 
 import architecture.Justification;
-import architecture.Vote;
 import architecture.Voting;
 import ui.text.Interface;
 import ui.text.UIUtils;
@@ -31,6 +30,7 @@ public class JustifyAbsenceOperation implements Operation
 		}
 		else
 		{
+			textInterface.showVotings(votings);
 			Voting chosenVoting = textInterface.chooseVoting(votings);
 			assert chosenVoting != null;
 			

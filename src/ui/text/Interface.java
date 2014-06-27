@@ -12,9 +12,11 @@ import architecture.Vote;
 import architecture.Voting;
 import architecture.VotingMember;
 import data.Database;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import ui.Login;
 import ui.text.command.AuthorizeVotingsCommand;
 import ui.text.command.CloseVotingCommand;
@@ -22,6 +24,7 @@ import ui.text.command.Command;
 import ui.text.command.CreateVotingCommand;
 import ui.text.command.DeleteVotingCommand;
 import ui.text.command.GenerateVotingRecordCommand;
+import ui.text.command.JustifyAbsenceCommand;
 import ui.text.command.OpenVotingCommand;
 import ui.text.command.VisualizeVotingCommand;
 import ui.text.command.VisualizeVotingsCommand;
@@ -77,6 +80,7 @@ public class Interface {
         addCommand("VALL", new VisualizeVotingsCommand(database, this));
         addCommand("VONE", new VisualizeVotingCommand(database, this));
         addCommand("VOTE", new VoteCommand(database, this));
+        addCommand("J", new JustifyAbsenceCommand(database, this));
     }
     
     public void addAllChiefCommands(){
@@ -85,6 +89,7 @@ public class Interface {
         addCommand("VALL", new VisualizeVotingsCommand(database, this));
         addCommand("VONE", new VisualizeVotingCommand(database, this));
         addCommand("VOTE", new VoteCommand(database, this));
+        addCommand("J", new JustifyAbsenceCommand(database, this));
         addCommand("D", new DeleteVotingCommand(database, this));
         addCommand("O", new OpenVotingCommand(database, this));
         addCommand("CL", new CloseVotingCommand(database, this));
@@ -95,6 +100,7 @@ public class Interface {
         addCommand("CR", new CreateVotingCommand(database, this));
         addCommand("VALL", new VisualizeVotingsCommand(database, this));
         addCommand("VONE", new VisualizeVotingCommand(database, this));
+        addCommand("J", new JustifyAbsenceCommand(database, this));
         addCommand("D", new DeleteVotingCommand(database, this));
         addCommand("O", new OpenVotingCommand(database, this));
         addCommand("CL", new CloseVotingCommand(database, this));

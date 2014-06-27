@@ -3,9 +3,11 @@ package operation;
 
 import java.util.List;
 
+import architecture.Justification;
 import architecture.Vote;
 import architecture.Voting;
 import ui.text.Interface;
+import ui.text.UIUtils;
 import data.Database;
 
 public class JustifyAbsenceOperation implements Operation
@@ -22,12 +24,21 @@ public class JustifyAbsenceOperation implements Operation
 	@Override
 	public void execute()
 	{
-		List<Voting> votings = database.getAllClosedVotings();
-		Voting chosenVoting = textInterface.chooseVoting(votings);
+		List<Voting> votings = database.getUnvotedClosedVotings(textInterface.getCurrentMember());
+		if (votings.isEmpty())
+		{
+			textInterface.showWarning("You have no absence in votings!");
+		}
+		else
+		{
+			Voting chosenVoting = textInterface.chooseVoting(votings);
+			assert chosenVoting != null;
+			
+			String justification = UIUtils.INSTANCE.readString("Please enter your justification here");
+			Justification absenceJustification = new Justification(justification, textInterface.getCurrentMember());
+			chosenVoting.addJustification(absenceJustification);
+		}
 		
-		assert chosenVoting!=null;
-		
-		// TODO Verifica que não há voto do usuário, pede justificativa de ausência.
 	}
 
 }

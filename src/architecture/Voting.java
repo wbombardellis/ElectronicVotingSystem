@@ -28,6 +28,7 @@ public abstract class Voting {
     private boolean closed = false;
     private boolean closedManually = false;
     private final List<VotingMember> membersWhoVoted;
+    private List<Justification> absenceJustifications;
     
     public Voting(int id, String author, Date startDate, Date endDate){
         this.id = id;
@@ -39,6 +40,7 @@ public abstract class Voting {
         this.released = false;
         this.votes = new ArrayList<>();
         this.membersWhoVoted = new ArrayList<>();
+        this.absenceJustifications = new ArrayList<Justification>();
     }
     
     public int getId(){
@@ -114,6 +116,11 @@ public abstract class Voting {
     
     public List<Vote> getVotes(){
         return votes;
+    }
+    
+    public void addJustification(Justification justification)
+    {
+    	this.absenceJustifications.add(justification);
     }
     
     public abstract boolean missingDocuments();

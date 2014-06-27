@@ -129,6 +129,22 @@ public class Database {
         return unrecordedOpenVotings;
     }
     
+    public List<Voting> getUnvotedClosedVotings(Member member)
+    {
+    	List<Voting> unvotedVotings = new ArrayList<Voting>();
+    	List<Voting> closedVotings = getAllClosedVotings();
+    	
+    	for (Voting voting : closedVotings)
+    	{
+			if (voting.getMembersWhoVoted().contains(member) == false)
+			{
+				unvotedVotings.add(voting);
+			}
+		}
+    	
+    	return unvotedVotings;
+    }
+    
     public List<Voting> getAllClosedVotings()
     {
     	List<Voting> closedVotings = new ArrayList<Voting>();

@@ -123,6 +123,10 @@ public abstract class Voting {
     	this.absenceJustifications.add(justification);
     }
     
+    public List<Justification> getJustifications() {
+    	return this.absenceJustifications;
+    }
+    
     public abstract boolean missingDocuments();
 
 }

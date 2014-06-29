@@ -24,8 +24,10 @@ import ui.text.command.Command;
 import ui.text.command.CreateVotingCommand;
 import ui.text.command.DeleteVotingCommand;
 import ui.text.command.GenerateVotingRecordCommand;
+import ui.text.command.JustifiedAbsenceReportCommand;
 import ui.text.command.JustifyAbsenceCommand;
 import ui.text.command.OpenVotingCommand;
+import ui.text.command.OpenVotingsReportCommand;
 import ui.text.command.VisualizeVotingCommand;
 import ui.text.command.VisualizeVotingsCommand;
 import ui.text.command.VoteCommand;
@@ -81,6 +83,8 @@ public class Interface {
         addCommand("VONE", new VisualizeVotingCommand(database, this));
         addCommand("VOTE", new VoteCommand(database, this));
         addCommand("J", new JustifyAbsenceCommand(database, this));
+        addCommand("VREP", new OpenVotingsReportCommand(database, this));
+        addCommand("JREP", new JustifiedAbsenceReportCommand(database, this));
     }
     
     public void addAllChiefCommands(){
@@ -90,6 +94,8 @@ public class Interface {
         addCommand("VONE", new VisualizeVotingCommand(database, this));
         addCommand("VOTE", new VoteCommand(database, this));
         addCommand("J", new JustifyAbsenceCommand(database, this));
+        addCommand("VREP", new OpenVotingsReportCommand(database, this));
+        addCommand("JREP", new JustifiedAbsenceReportCommand(database, this));
         addCommand("D", new DeleteVotingCommand(database, this));
         addCommand("O", new OpenVotingCommand(database, this));
         addCommand("CL", new CloseVotingCommand(database, this));
@@ -101,6 +107,8 @@ public class Interface {
         addCommand("VALL", new VisualizeVotingsCommand(database, this));
         addCommand("VONE", new VisualizeVotingCommand(database, this));
         addCommand("J", new JustifyAbsenceCommand(database, this));
+        addCommand("VREP", new OpenVotingsReportCommand(database, this));
+        addCommand("JREP", new JustifiedAbsenceReportCommand(database, this));
         addCommand("D", new DeleteVotingCommand(database, this));
         addCommand("O", new OpenVotingCommand(database, this));
         addCommand("CL", new CloseVotingCommand(database, this));
@@ -187,6 +195,13 @@ public class Interface {
             sb.append("\n").append(key).append(" - ").append(command);
         }
         return sb.toString();
+    }
+    
+    public void showTabular(String... columns) {
+    	for (String col : columns) {
+    		System.out.print(col + "\t");
+    	}
+    	System.out.println();
     }
     
 }

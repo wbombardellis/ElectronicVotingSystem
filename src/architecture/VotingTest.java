@@ -126,7 +126,7 @@ public class VotingTest {
      */
     @Test
     public void testIsRecorded() {
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = testVoting.isRecorded();
         assertEquals(expResult, result);
         
@@ -215,7 +215,7 @@ public class VotingTest {
      */
     @Test
     public void testWasClosedManually() {
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = testVoting.wasClosedManually();
         assertEquals(expResult, result);
     }
@@ -248,5 +248,24 @@ public class VotingTest {
         assertEquals(testVote.getType(), resultVote.getType());
     }
 
-      
+    
+    @Test
+    public void testGetJustification() {
+        Justification testJustification = new Justification("JUSTIFICAÇÃO", new VotingMember("Jão"));
+        
+        assertEquals(testVoting.getJustifications().size(), 0);
+        
+        testVoting.addJustification(testJustification);
+        
+        assertEquals(testVoting.getJustifications().size(), 1);
+        
+        List<Justification> testListJust = testVoting.getJustifications();
+        
+        assertEquals(testVoting.getJustifications().size(), 1);
+        
+        Justification resultJust = testListJust.get(0);
+        
+        assertEquals(testJustification, resultJust);
+    }
+    
 }

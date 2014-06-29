@@ -8,19 +8,26 @@ package data;
 
 import architecture.Member;
 import architecture.Probation;
+import architecture.Vote;
 import architecture.Voting;
 import architecture.VotingMember;
 import architecture.VotingRecord;
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.junit.AfterClass;
+
+import static architecture.VoteType.FAVORABLE;
 import static org.junit.Assert.*;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import ui.Login;
 
 /**
@@ -179,7 +186,7 @@ public class DatabaseTest {
         testVoting.close();
         testDatabase.addVoting(testVoting);
         
-        int expResult = 0;
+        int expResult = 1;
         List<Voting> result = testDatabase.getUnrecordedClosedVotings();
         assertEquals(expResult, result.size());
     }
@@ -240,6 +247,59 @@ public class DatabaseTest {
        testDatabase.addVotingRecord(testVotingRecord);
        
        
+    }
+    
+    @Test
+    public void testGetAllClosedVotings() {
+    	Database testDatabase = new Database();
+        Voting testVoting1 = new Probation (1, "Joao", new Date(), new Date(), new String(), new String());
+        Voting testVoting2 = new Probation (2, "Joao", new Date(), new Date(), new String(), new String());
+        
+        testDatabase.addVoting(testVoting1);
+        testDatabase.addVoting(testVoting2);
+        
+        int expResult = 0;
+        List<Voting> result = testDatabase.getAllClosedVotings();
+        assertEquals(expResult, result.size());
+        
+        testVoting1.close();
+        expResult = 1;
+        result = testDatabase.getAllClosedVotings();
+        assertEquals(expResult, result.size());
+
+        testDatabase.recordVoting(testVoting2);
+        expResult = 1;
+        result = testDatabase.getAllClosedVotings();
+        assertEquals(expResult, result.size());
+        
+        testVoting2.close();
+        expResult = 2;
+        result = testDatabase.getAllClosedVotings();
+        assertEquals(expResult, result.size());
+    }
+    
+    @Test
+    public void testGetUnvotedClosedVotings() {
+    	Database testDatabase = new Database();
+    	VotingMember testMember = new VotingMember("Jão");
+        Voting testVoting = new Probation (1, "Joao", new Date(), new Date(), new String(), new String());
+        
+        testDatabase.addVoting(testVoting);
+        
+        int expResult = 0;
+        List<Voting> result = testDatabase.getUnvotedClosedVotings(testMember);
+        assertEquals(expResult, result.size());
+        
+        testVoting.close();
+        assertTrue(testVoting.isClosed());
+        expResult = 1;
+        result = testDatabase.getUnvotedClosedVotings(testMember);
+        assertEquals(expResult, result.size());
+
+        testVoting.addVote(new Vote(FAVORABLE, testMember, ""));
+        expResult = 0;
+        result = testDatabase.getUnvotedClosedVotings(testMember);
+        assertEquals(expResult, result.size());
     }
     
 }
